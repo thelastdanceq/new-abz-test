@@ -2,6 +2,9 @@ import createTheme from "@mui/material/styles/createTheme"
 
 export const theme = createTheme({
 	palette: {
+		primary: {
+			main: "#000",
+		},
 		secondary: {
 			main: "#F4E041",
 		},
@@ -11,10 +14,10 @@ export const theme = createTheme({
 	},
 	breakpoints: {
 		values: {
-			xs: 328,
-			sm: 344 * 2 + 16,
-			md: 282 * 3 + 29 * 2,
-			lg: 370 * 3 + 29 * 2,
+			xs: 10,
+			sm: 768,
+			md: 1024,
+			lg: 2560,
 			xl: 1536,
 		},
 	},
@@ -27,10 +30,17 @@ export const theme = createTheme({
 					},
 				},
 				contained: {
+					fontStyle: "normal",
+					fontWeight: 400,
+					fontSize: "16px",
+					lineHeight: "26px",
 					borderRadius: "80px",
-					padding: "4px 28px",
+					paddingTop: "4px",
+					paddingBottom: "4px",
 					color: "black",
+					minWidth: "100px",
 					maxWidth: "120px",
+					textTransform: "none",
 					backgroundColor: "#F4E041",
 					"&:hover": {
 						backgroundColor: "#FFE302",

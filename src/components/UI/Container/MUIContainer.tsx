@@ -6,19 +6,24 @@ const getCurrentSize = (
 	large: boolean,
 	extraLarge: boolean
 ) => {
-	if (extraLarge) return "lg"
-	if (large) return "md"
-	if (middle) return "sm"
-	if (small) return "xs"
+	if (extraLarge) return 370 * 3 + 29 * 2
+	if (large) return 282 * 3 + 29 * 2
+	if (middle) return 344 * 2 + 16
+	return 328
 }
 export const MUIContainer: React.FC<PropsWithChildren> = ({ children }) => {
 	const xs = useMediaQuery("(min-width:360px)")
 	const sm = useMediaQuery("(min-width:768px)")
 	const md = useMediaQuery("(min-width:1024px)")
 	const lg = useMediaQuery("(min-width:2560px)")
-	console.log(xs, sm, md, lg)
 
 	return (
-		<Container maxWidth={getCurrentSize(xs, sm, md, lg)}>{children}</Container>
+		<Container
+			sx={{ maxWidth: getCurrentSize(xs, sm, md, lg) + "px" }}
+			disableGutters
+			maxWidth={false}
+		>
+			{children}
+		</Container>
 	)
 }

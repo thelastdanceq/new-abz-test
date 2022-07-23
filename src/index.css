@@ -1,5 +1,15 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Nunito;
+}
+a {
+	text-decoration: none;
+}
+h1 {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 40px;
+	line-height: 40px;
 }
