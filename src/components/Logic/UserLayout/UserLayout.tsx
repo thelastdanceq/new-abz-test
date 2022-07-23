@@ -1,13 +1,18 @@
 import { Box, Button } from "@mui/material"
-import { useContext, useEffect, useState } from "react"
-import { UsersContext } from "../../../contexts/users"
+import { memo, useContext, useEffect, useState } from "react"
+import {
+	UsersDispatchContext,
+	UsersStateContext,
+} from "../../../contexts/users"
 import { MUIContainer } from "../../UI/Container/MUIContainer"
 import { IUsersInfo } from "./types"
 import { UserList } from "./UserList/UserList"
 
-export const UserLayout = () => {
+export const UserLayout = memo(() => {
 	const [usersInfo, setUsersInfo] = useState<IUsersInfo | null>(null)
-	const { setUsers, users } = useContext(UsersContext)
+	const { setUsers } = useContext(UsersDispatchContext)
+	const { users } = useContext(UsersStateContext)
+
 	const handleShowMore = () => {
 		if (usersInfo?.links.next_url) {
 			fetch(usersInfo?.links.next_url)
@@ -55,4 +60,5 @@ export const UserLayout = () => {
 			</Box>
 		</MUIContainer>
 	)
-}
+})
+UserLayout.displayName = "UserLayout"

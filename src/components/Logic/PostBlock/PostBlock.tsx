@@ -1,5 +1,5 @@
 import { Box, TextField, Button, Tooltip, Modal } from "@mui/material"
-import { useContext, useEffect, useState } from "react"
+import { memo, useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { limitString30 } from "../UserLayout/UserCard/helpers"
 import { defaultValues } from "./const"
@@ -8,10 +8,10 @@ import RadioButtons from "./RadioButtons/RadioButtons"
 import { IPosition, IValues } from "./type"
 //@ts-ignore
 import success from "../../../assets/images/success-image.svg"
-import { UsersContext } from "../../../contexts/users"
+import { UsersDispatchContext } from "../../../contexts/users"
 
-export const PostBlock = () => {
-	const { setUsers } = useContext(UsersContext)
+export const PostBlock = memo(() => {
+	const { setUsers } = useContext(UsersDispatchContext)
 
 	const [open, setOpen] = useState(false)
 	const [positions, setPositions] = useState<IPosition[] | null>(null)
@@ -242,4 +242,5 @@ export const PostBlock = () => {
 			</Modal>
 		</Box>
 	)
-}
+})
+PostBlock.displayName = "PostBlock"
