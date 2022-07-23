@@ -5,18 +5,14 @@ import {
 	FormControlLabel,
 	Radio,
 } from "@mui/material"
+import { memo } from "react"
 import { Controller } from "react-hook-form"
 import { Props } from "./types"
 
-const RadioButtons = ({ errors, control, positions }: Props) => {
+const RadioButtons = memo(({ control, positions }: Props) => {
 	return (
 		<FormControl component='fieldset' sx={{ marginTop: "25px" }}>
-			<FormLabel
-				component='legend'
-				sx={{ color: errors.position?.message ? "red" : "black" }}
-			>
-				Select your position
-			</FormLabel>
+			<FormLabel component='legend'>Select your position</FormLabel>
 			<Controller
 				rules={{ required: "Choose the position!" }}
 				control={control}
@@ -40,6 +36,5 @@ const RadioButtons = ({ errors, control, positions }: Props) => {
 			/>
 		</FormControl>
 	)
-}
-
+})
 export default RadioButtons

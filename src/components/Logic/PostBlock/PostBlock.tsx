@@ -148,11 +148,7 @@ export const PostBlock = () => {
 						/>
 					</Box>
 					{positions && (
-						<RadioButtons
-							control={control}
-							errors={errors}
-							positions={positions}
-						/>
+						<RadioButtons control={control} positions={positions} />
 					)}
 
 					<Box
