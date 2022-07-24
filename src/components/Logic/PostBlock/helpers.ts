@@ -11,7 +11,9 @@ export const fileTypeChecker = (value: FileList | null) => (
     "Please choose jpeg/jpg images"
 )
 
-export const fileSquareChecker = (value: FileList | null) => {
+
+export const fileSquareChecker = (setter: React.Dispatch<React.SetStateAction<string>>) => (value: FileList | null) => {
+    setter('asd')
     if (value) {
         const reader = new FileReader()
 

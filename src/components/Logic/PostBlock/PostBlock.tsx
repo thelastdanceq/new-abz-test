@@ -21,17 +21,19 @@ import { UsersDispatchContext } from "../../../contexts/users"
 
 export const PostBlock = memo(() => {
 	const { setUsers } = useContext(UsersDispatchContext)
+	const [, setValue] = useState("")
 
 	const [open, setOpen] = useState(false)
 	const [positions, setPositions] = useState<IPosition[] | null>(null)
 	const {
 		register,
 		reset,
+		watch,
 		handleSubmit,
-		getValues,
 		control,
 		formState: { errors, isValid },
 	} = useForm({ defaultValues, mode: "onChange", reValidateMode: "onChange" })
+	const watchFields = watch("photo")
 
 	const handleClose = () => {
 		setOpen(false)
@@ -174,9 +176,9 @@ export const PostBlock = memo(() => {
 							}}
 						>
 							<span>
-								{getValues("photo") ? (
-									<Tooltip title={getValues("photo")![0]!.name!}>
-										<span>{limitString30(getValues("photo")![0]!.name!)}</span>
+								{watchFields ? (
+									<Tooltip title={watchFields![0]!.name!}>
+										<span>{limitString30(watchFields![0]!.name!)}</span>
 									</Tooltip>
 								) : (
 									`Upload your photo`
@@ -194,7 +196,7 @@ export const PostBlock = memo(() => {
 								validate: {
 									sizeChecker: sizeChecker,
 									fileTypeChecker: fileTypeChecker,
-									fileSquareChecker: fileSquareChecker,
+									fileSquareChecker: fileSquareChecker(setValue),
 								},
 							})}
 						/>
