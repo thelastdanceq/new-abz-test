@@ -3,7 +3,16 @@ import { memo, useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { limitString30 } from "../UserLayout/UserCard/helpers"
 import { defaultValues } from "./const"
-import { fileSquareChecker, fileTypeChecker, sizeChecker } from "./helpers"
+import {
+	fileSquareChecker,
+	fileTypeChecker,
+	firstPageUsers,
+	getFormDate,
+	getId,
+	getToken,
+	postFormData,
+	sizeChecker,
+} from "./helpers"
 import RadioButtons from "./RadioButtons/RadioButtons"
 import { IPosition, IValues } from "./type"
 //@ts-ignore
@@ -27,50 +36,24 @@ export const PostBlock = memo(() => {
 	const handleClose = () => {
 		setOpen(false)
 	}
+
 	const onSubmit = async (data: IValues) => {
 		const { email, name, phone, photo, position } = data
 
 		if (positions && photo) {
-			const pos = positions.filter(
-				({ name, id }) => name.toLowerCase() === position
-			)[0].id
-			const formData = new FormData()
-			formData.append("position_id", String(pos))
-			formData.append("name", name)
-			formData.append("email", email)
-			formData.append("phone", phone)
-			formData.append("photo", photo[0])
-			const response = await fetch(
-				"https://frontend-test-assignment-api.abz.agency/api/v1/token"
-			)
-			const { token } = await response.json()
+			const pos = getId(positions, position)
+			const formData = getFormDate(pos, name, email, phone, photo)
 
-			try {
-				const postResponse = await fetch(
-					"https://frontend-test-assignment-api.abz.agency/api/v1/users",
-					{
-						method: "POST",
-						body: formData,
-						headers: { Token: token },
-					}
-				)
+			const token = await getToken()
+			const data = await postFormData(formData, token)
 
-				const { success } = await postResponse.json()
-				if (success) {
-					reset()
-					setOpen(true)
-					try {
-						const useResponse = await fetch(
-							" https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6"
-						)
-						const data = await useResponse.json()
-						setUsers(data.users)
-					} catch (err) {
-						console.dir(err as Error)
-					}
-				}
-			} catch (err) {
-				alert(err)
+			if (data.success) {
+				setOpen(true)
+				reset()
+				const { users } = await firstPageUsers()
+				setUsers(users)
+			} else {
+				alert(data.message)
 			}
 		}
 	}
