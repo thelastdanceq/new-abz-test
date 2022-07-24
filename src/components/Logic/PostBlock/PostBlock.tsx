@@ -176,7 +176,7 @@ export const PostBlock = memo(() => {
 							}}
 						>
 							<span>
-								{watchFields ? (
+								{watchFields && watchFields[0] && watchFields[0].name ? (
 									<Tooltip title={watchFields![0]!.name!}>
 										<span>{limitString30(watchFields![0]!.name!)}</span>
 									</Tooltip>
