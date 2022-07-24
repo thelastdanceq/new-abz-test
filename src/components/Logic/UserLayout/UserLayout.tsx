@@ -8,7 +8,7 @@ import { MUIContainer } from "../../UI/Container/MUIContainer"
 import { IUsersInfo } from "./types"
 import { UserList } from "./UserList/UserList"
 
-export const UserLayout = memo(() => {
+const UserLayout = memo(() => {
 	const [usersInfo, setUsersInfo] = useState<IUsersInfo | null>(null)
 	const { setUsers } = useContext(UsersDispatchContext)
 	const { users } = useContext(UsersStateContext)
@@ -62,3 +62,4 @@ export const UserLayout = memo(() => {
 	)
 })
 UserLayout.displayName = "UserLayout"
+export default UserLayout
